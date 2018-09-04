@@ -1,0 +1,64 @@
+*background: #000000
+*foreground: #ffffff
+
+!! Red
+*color1: #fc4416
+*color9: #fc4416
+
+!! Green
+! *color2:
+
+!! Blue
+*color4: #1962b5
+*color12: #2990e5
+
+!!Magenta
+*color13: #802cd3
+
+
+!URxvt.termName: rxvt-256-color
+URxvt.reverseVidoe: True
+URxvt*font: xft:NotoSansMono:pixelsize=12:antialias=true
+URxvt.perl-ext-common: default,matcher,font-size
+
+
+URxvt.internalBorder: 1
+URxvt.externalBorder: 1
+
+URxvt.saveLines: 4095
+
+! remove ctrl+shift shorcut
+URxvt.iso14755: false
+
+! transparency
+#URxvt*depth: 32
+URxvt*shading: 15
+URxvt*transparent: true
+URxvt.tintColor: white
+
+URxvt.scrollBar: false
+URxvt.scrollBar_left: false
+URxvt.scrollBar_right: false
+
+! font size bindings
+URxvt.keysym.C-Up:     font-size:increase
+URxvt.keysym.C-Down:   font-size:decrease
+URxvt.keysym.C-S-Up:   font-size:incglobal
+URxvt.keysym.C-S-Down: font-size:decglobal
+URxvt.keysym.C-equal:  font-size:reset
+URxvt.keysym.C-slash:  font-size:show
+
+! rofi
+
+rofi.color-enabled: true
+rofi.hide-scrollbar: true
+
+#                   Window          Border          Separate
+! rofi.color-window:  argb:d0f4a742,  argb:f0ef9b4c,  argb:f0ef9b4c
+! rofi.color-window:  argb:f0f4a742 
+
+#bg, fg, alt bg,highlightbg,highlightfg
+! rofi-color-normal: argb:00435e75, argb:ff9dbeda, argb:00486884, argb:a02c3e4f, argb:d09dbeda
+! rofi-color-active: argb:00435e75, argb:ff9dbeda, argb:00486884, argb:a02c3e4f, argb:d09dbeda
+! rofi-color-urgent: argb:00435e75, argb:ff9dbeda, argb:00486884, argb:a02c3e4f, argb:d09dbeda
+
