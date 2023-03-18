@@ -1,4 +1,3 @@
-#
 # ~/.bashrc
 #
 
@@ -7,6 +6,8 @@
 
 # vim terminal mode
 set -o vi
+
+export PATH=$PATH:/home/tristan/.cargo/bin:/home/tristan/.local/bin
 
 # load ~/.bash_aliases
 if [ -f ~/.bash_aliases ]; then
@@ -18,8 +19,14 @@ fi
 # esac
 
 export GIT_TEMPLATE_DIR=/usr/share/git-core/templates
+export VISUAL="vim"
 
 color_prompt=yes
+
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
 
 if [ "$color_prompt" = yes ]; then
     Black='\[\033[00;30m\]'
@@ -46,8 +53,13 @@ if [ "$color_prompt" = yes ]; then
     Inv='\[\e[7m\]'
     Hidden='\[\e[8m\]'
     R='\[\e[0m\]'
-    PS1='${debian_chroot:+(debian_chroot)}'$Red'['$R$Blue'\u'$LGreen'@'$LRed'\h'$Red']:'$Purple'\w'$Red'$ '$R
+    PS1='${debian_chroot:+(debian_chroot)}'$Red'['$R$Blue'\u'$LGreen'@'$LRed'\h'$Red']:'$Purple'\w'$Red'$'$LGreen'$(parse_git_branch) '$R
+
 else
     PS1='[\u@\h \W]\$ '
 
 fi
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION

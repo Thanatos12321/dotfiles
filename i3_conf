@@ -10,7 +10,9 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod1
+# set $mod Mod4
 set $terminal urxvt
+set $terminal alacritty
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -40,7 +42,7 @@ bindsym $Mod+Shift+space floating toggle
 bindsym $Mod+space focus mode_toggle
 
 # start a terminal
-bindsym $mod+Return exec $terminal
+bindsym $mod+Return exec --no-startup-id $terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -89,8 +91,8 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 
@@ -101,6 +103,8 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 bindsym Mod1+Tab workspace back_and_forth
+# lets you press the current workspace to go back to the previous
+workspace_auto_back_and_forth yes
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -155,10 +159,10 @@ bindsym $mod+Shift+0 move container to $ws10
 
 # vim like resize
 set $repx 10
-bindsym Mod1+Shift+u resize shrink width $repx px or $repx ppt
-bindsym Mod1+Shift+i resize grow height $repx px or $repx ppt
-bindsym Mod1+Shift+o resize shrink height $repx px or $repx ppt
-bindsym Mod1+Shift+p resize grow width $repx px or $repx ppt
+bindsym $mod+Shift+u resize shrink width $repx px or $repx ppt
+bindsym $mod+Shift+i resize grow height $repx px or $repx ppt
+bindsym $mod+Shift+o resize shrink height $repx px or $repx ppt
+bindsym $mod+Shift+p resize grow width $repx px or $repx ppt
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -168,10 +172,15 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Media key bindings
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset 'PCM' 5%-
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset 'PCM' 5%+
-bindsym XF86AudioMute exec --no-startup-id amixer -q sset 'PCM' toggle
-# bindsym XF86AudioPlay exec --no-startup-id
+#bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset 'PCM' 5%-
+#bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset 'PCM' 5%+
+#bindsym XF86AudioMute exec --no-startup-id amixer -q sset 'PCM' toggle
+
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 3%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 3%-
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 # bindsym XF86AudioStop exec --no-startup-id
 # bindsym XF86AudioPrev exec --no-startup-id
 # bindsym XF86AudioNext exec --no-startup-id
@@ -215,17 +224,17 @@ bar {
 
 
 # assign applications to specific workspaces
-assign [class="google-chrome"] $ws9
-assign [class="Google-chrome"] $ws9
+# assign [class="google-chrome"] $ws9
+# assign [class="Google-chrome"] $ws9
 
 # applicaion opening bindings
 bindsym Mod1+Shift+b exec google-chrome-stable
 bindsym Mod1+Shift+a exec $terminal -e 'bpython-curses'
 
 # utility bindings
-bindsym Shift+F1 exec ~/Documents/Scripts/i3lock/lock -n -b=0x8 >> /dev/null
-bindsym Print exec scrot -m ~/Pictures/screenshots/%b%d%H%M%S.png
-bindsym Shift+Print exec scrot -ub ~/Pictures/screenshots/%b%d%H%M%S.png
+bindsym Shift+F1 exec ~/Documents/scripts/lock.sh
+bindsym Print exec flameshot --no-startup-id full -p ~/Pictures/screenshots
+bindsym Ctrl+Print exec flameshot gui -p ~/Pictures/screenshots
 
 # gaps settings
 #set $mc #f4a742
@@ -242,10 +251,11 @@ new_float pixel 1
 
 
 gaps inner 5
-gaps outer 20
+gaps outer 15
 
 focus_follows_mouse false
 
 # Set bg
 # exec_always --no-startup-id feh --bg-scale ~/Pictures/Wallpapers/"circle_cloudy_sky.jpg" --bg-scale ~/Pictures/Wallpapers/Chair_city.png
 exec_always --no-startup-id ~/Documents/Scripts/wall.sh
+
